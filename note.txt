@@ -1,0 +1,14 @@
+
+.htaccess
+
+^ sau domail
+$ tat ca tren thanh dia chi thi cho ve index.php?url=$1
+voi tham so la $1
+
+Tranh truong hop cho ve index.php nen cho dieu kien de chan lai
+RewriteCond
+
+
+tu index se goi qua bridge
+
+https://www.youtube.com/watch?v=guCJ0o2rUZ8
