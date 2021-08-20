@@ -113,14 +113,27 @@ class DB{
         $values = array_values($data);
         $values[]=$id;
 
-        $sql = "UPDATE $this->table SET $setField WHERE id=?";
+        $sql = "UPDATE $this->table SET $setField WHERE id=? LIMIT 1";
         $this->statement=$this->conn->prepare($sql);
         $dataType = str_repeat('s',count($data)).'i';
         $this->statement->bind_param($dataType,...$values);
         $this->statement->execute();
 
         return $this->statement->affected_rows;
+    }
 
+    public function auth_attempt($email,$password)
+    {   
+        $sql ="SELECT* FROM $this->table WHERE email = ? ";
+        $this->statement=$this->conn->prepare($sql);
+        $this->statement->bind_param('s',$email);
+        $this->statement->execute();
+        
+        $pass2 = $this->statement->get_result()->fetch_object()->password;
+        if (password_verify($password,$pass2)) {
+            return true;
+        }
+        return false;
     }
 
 }
