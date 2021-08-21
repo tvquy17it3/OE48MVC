@@ -5,9 +5,9 @@
 class App 
 {
 	//  domain/home/show/10 => $arr[0]=home , $arr[1] =show, $arr[2]=10
-	protected $controller = "home";
-	protected $action = "index";
-	protected $params;   
+	private $controller = "home";
+	private $action = "index";
+	private $params;   
 
 	function __construct()
 	{	
@@ -42,7 +42,6 @@ class App
 		// print_r($this->params);
 		// call action from controller
 		call_user_func_array([$this->controller,$this->action], $this->params);
-
 	}
 
 	//trim / to array

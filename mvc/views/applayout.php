@@ -15,7 +15,6 @@
 	.form-group {
 		margin-top: 20px;
 	}
-
 </style>
 </head>
 
@@ -55,6 +54,6 @@
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="<?php echo BASE_URL; ?>/public/js/register.js"></script>
+<script src="<?php echo BASE_URL; ?>public/js/register.js"></script>
 </body>
 </html>
