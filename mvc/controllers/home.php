@@ -5,7 +5,6 @@ class home extends Controller{
 	function index(){
 		if(isset($_SESSION['email'])){
 			echo $_SESSION['email'];
-			unset($_SESSION['email']);
 		}
 		
 		if (isset($_SESSION['register'])) {
@@ -19,11 +18,10 @@ class home extends Controller{
 		echo "show: ".$id;
 	}
 
-	function test()
+	function test($id)
 	{
-		$userModel = $this->model('TestModel');
-		print_r($userModel->find(1));
-
+		$userModel = $this->model('UserModel');
+		print_r($userModel->find($id));
 	}
 }
 

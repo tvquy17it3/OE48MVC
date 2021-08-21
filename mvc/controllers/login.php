@@ -5,13 +5,14 @@ class login extends Controller{
 
 	function __construct()
 	{
-		if (isset($_SESSION['email'])) {
-			header('Location: ' .BASE_URL);
-		}
 		$this->userModel = $this->model('UserModel');
 	}
 
 	function index(){
+		if (isset($_SESSION['email'])) {
+			header('Location: ' .BASE_URL);
+		}
+		
 		$this->view("applayout",[
 				'page' => 'login',
 				'title'=> "Đăng nhập",
@@ -34,6 +35,11 @@ class login extends Controller{
 	    }else {
 			header('Location: ' .BASE_URL."login");
 		}
+    }
+
+    public function logout(){
+    	unset($_SESSION['email']);
+    	header('Location: ' .BASE_URL);
     }
 }
 ?>
