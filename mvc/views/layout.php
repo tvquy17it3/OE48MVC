@@ -1,6 +1,3 @@
-<?php
-    define('BASE_URL', 'http://localhost/OE48MVC/');
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -73,7 +70,7 @@
                   <li><a><i class="fa fa-users" aria-hidden="true"></i>Tài khoản<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?php echo BASE_URL; ?>user/editor">Kiểm duyệt</a></li>
-                      <li><a href="<?php echo BASE_URL; ?>user">Người dùng</a></li>
+                      <li><a href="<?php echo BASE_URL; ?>user">Tất cả</a></li>
                       <li><a href="<?php echo BASE_URL; ?>user/block">Đã khóa</a></li>
                     </ul>
                   </li>   

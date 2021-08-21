@@ -1,32 +1,22 @@
-<?php
+<?php 
 
-class DB{
-   
-    private $host="localhost";
-    private $user="root";
-    private $pass ="";
-    private $db ="oe_mvc";
-    protected $conn = null;
+class Model {
+	protected $conn = null;
     protected $result = null;
     protected $statement = null;
     protected $table="";
     protected $limit = 20;
     protected $offset= 0;
-    
-    protected function connect()
-    {
-        $this->conn= new mysqli($this->host,$this->user,$this->pass,$this->db)
-        or die("connect fail!!");
-        $this->conn->query('SET NAMES UTF8');
-    }
 
-    public function table($tableName)
+	public function table($tableName)
     {
-        $this->table=$tableName;
+    	$database = Database::getInstance();
+		$this->conn = $database->connection;
+        $this->table = $tableName;
         return $this;
     }
 
-    public function limit($limit)
+	public function limit($limit)
     {
         $this->limit=$limit;
         return $this;
@@ -113,19 +103,29 @@ class DB{
         $values = array_values($data);
         $values[]=$id;
 
-        $sql = "UPDATE $this->table SET $setField WHERE id=?";
+        $sql = "UPDATE $this->table SET $setField WHERE id=? LIMIT 1";
         $this->statement=$this->conn->prepare($sql);
         $dataType = str_repeat('s',count($data)).'i';
         $this->statement->bind_param($dataType,...$values);
         $this->statement->execute();
 
         return $this->statement->affected_rows;
-
     }
 
+    public function auth_attempt($email,$password)
+    {   
+        $sql ="SELECT* FROM $this->table WHERE email = ? ";
+        $this->statement=$this->conn->prepare($sql);
+        $this->statement->bind_param('s',$email);
+        $this->statement->execute();
+        
+        $pass2 = $this->statement->get_result()->fetch_object()->password;
+        if (password_verify($password,$pass2)) {
+            return true;
+        }
+        return false;
+    }
+ 
 }
 
-// $this->statement->affected_rows;
-// > 0 đại diện cho số dòng bị ảnh hưởng bới các truy vấn.
-// 0 nếu không có dòng nào bị ảnh hưởng.
-// -1 nếu có lỗi xảy ra.
+?>
