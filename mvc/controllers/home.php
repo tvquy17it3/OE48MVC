@@ -18,6 +18,13 @@ class home extends Controller{
 	function show($id){
 		echo "show: ".$id;
 	}
+
+	function test()
+	{
+		$userModel = $this->model('TestModel');
+		print_r($userModel->find(1));
+
+	}
 }
 
 ?>

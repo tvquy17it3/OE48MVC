@@ -1,9 +1,8 @@
 <?
-class UserModel extends DB{ 
+class UserModel extends Model{ 
 
 	public function __construct()
     {
-        $this->connect();
         $this->table("users");
     }
 
