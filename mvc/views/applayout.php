@@ -19,13 +19,11 @@
 </head>
 
 <body>
-	<div id="app">
-		<nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm">
-			<div class="container">
-				<a class="navbar-brand" href="" style="color: white">
-					<!-- MVC -->
-				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
+<div id="app">
+	<nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm">
+		<div class="container">
+			<a class="navbar-brand" href="" style="color: white"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="{{ __('Toggle navigation') }}">
 				<span class="navbar-toggler-icon"></span>
@@ -49,6 +47,8 @@
 		<?php require_once "./mvc/views/".$data['page'].".php";?>
 	</main>
 </div>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">

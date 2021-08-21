@@ -1,7 +1,4 @@
 <?php 
-/**
- * 
- */
 class App 
 {
 	//  domain/home/show/10 => $arr[0]=home , $arr[1] =show, $arr[2]=10
@@ -43,6 +40,8 @@ class App
 		// call action from controller
 		call_user_func_array([$this->controller,$this->action], $this->params);
 	}
+
+
 
 	//trim / to array
 	function urlprocess()

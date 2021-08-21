@@ -7,16 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>MVC| Admin</title>
-
-    <!-- Bootstrap -->
-    <link href="<?php echo BASE_URL; ?>/public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo BASE_URL; ?>public/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="<?php echo BASE_URL; ?>/public/fonts/font-awesome.min.css" rel="stylesheet">
+    <link href="<?php echo BASE_URL; ?>public/fonts/font-awesome.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
-    <link href="<?php echo BASE_URL; ?>/public/css/custom.min.css" rel="stylesheet">
+    <link href="<?php echo BASE_URL; ?>public/css/custom.min.css" rel="stylesheet">
     </style>
   </head>
-
   <body class="nav-md" >
     <div class="container body">
       <div class="main_container">
@@ -30,12 +27,12 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="<?php echo BASE_URL; ?>/public/images/ad.png" alt="..." class="img-circle profile_img">
+                <img src="<?php echo BASE_URL; ?>public/images/ad.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
                 <h2>
-                  Admin
+                  <?php echo $_SESSION['email']; ?>
                 </h2>
               </div>
             </div>
@@ -109,14 +106,14 @@
                 <ul class=" navbar-right">
                   <li class="nav-item dropdown open" style="padding-left: 15px;">
                     <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="<?php echo BASE_URL; ?>/public/images/ad.png" alt="">
+                      <img src="<?php echo BASE_URL; ?>public/images/ad.png" alt="">
                     </a>
                     <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
                       <a class="dropdown-item"  href="javascript:;">
                         <span class="badge bg-red pull-right">50%</span>
                         <span>Cài đặt</span>
                       </a>
-                      <a class="dropdown-item" href="../logout.php"><i class="fa fa-sign-out pull-right"></i>Đăng xuất</a>
+                      <a class="dropdown-item" href="<?php echo BASE_URL; ?>login/logout"><i class="fa fa-sign-out pull-right"></i>Đăng xuất</a>
                     </div>
                   </li>
                 </ul>
@@ -133,11 +130,11 @@
     </div>
 
     <!-- jQuery -->
-    <script src="<?php echo BASE_URL; ?>/public/js/jquery.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>public/js/jquery.min.js"></script>
     <!-- Bootstrap -->
-    <script src="<?php echo BASE_URL; ?>/public/js/bootstrap.bundle.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>public/js/bootstrap.bundle.min.js"></script>
     <!-- Custom Theme Scripts -->
-    <script src="<?php echo BASE_URL; ?>/public/js/custom.min.js"></script>
+    <script src="<?php echo BASE_URL; ?>public/js/custom.min.js"></script>
     <script type="text/javascript">
       function thongbao(){
         alert("Chưa hoàn thiện hành động này!");
