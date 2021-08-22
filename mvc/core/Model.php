@@ -22,12 +22,19 @@ class Model {
         return $this;
     }
 
+    public function resetQuery()
+    {
+        $this->limit = 20;
+        $this->offset= 0;
+    }
+
     public function find($id)
     {
         $sql = "SELECT * FROM $this->table WHERE id = ?";
         $this->statement= $this->conn->prepare($sql);
         $this->statement->bind_param('i',$id);
         $this->statement->execute();
+        $this->resetQuery();
 
         $result = $this->statement->get_result();
         $returnData =[];
@@ -37,13 +44,31 @@ class Model {
         return $returnData;
     }
 
-    //get all from table
+    //get limit defaul 20 from table
     public function get()
     {
     	$sql = "SELECT * FROM $this->table LIMIT ? OFFSET ?";
         $this->statement = $this->conn->prepare($sql);
         $this->statement->bind_param('ii', $this->limit,$this->offset);
         $this->statement->execute();
+        $this->resetQuery();
+
+        $result = $this->statement->get_result();
+        $returnData =[];
+        while($rows=$result->fetch_object()){
+            $returnData[]=$rows;
+        }
+        return $returnData;
+    }
+
+    //get All
+    public function all()
+    {
+        $sql = "SELECT * FROM $this->table";
+        $this->statement = $this->conn->prepare($sql);
+        $this->statement->execute();
+        $this->resetQuery();
+
         $result = $this->statement->get_result();
         $returnData =[];
         while($rows=$result->fetch_object()){
@@ -73,6 +98,7 @@ class Model {
         $this->statement=$this->conn->prepare($sql);
         $this->statement->bind_param('si',$value2,$this->limit);
         $this->statement->execute();
+        $this->resetQuery();
 
         $result = $this->statement->get_result();
         $returnData =[];
@@ -108,10 +134,12 @@ class Model {
         $dataType = str_repeat('s',count($data)).'i';
         $this->statement->bind_param($dataType,...$values);
         $this->statement->execute();
+        $this->resetQuery();
 
         return $this->statement->affected_rows;
     }
 
+    //check email and password
     public function auth_attempt($email,$password)
     {   
         $sql ="SELECT* FROM $this->table WHERE email = ? ";
@@ -124,6 +152,28 @@ class Model {
             return true;
         }
         return false;
+    }
+
+
+    public function select($sql)
+    {
+        $this->statement = $this->conn->prepare($sql);
+        $this->statement->execute();
+
+        $result = $this->statement->get_result();
+        $returnData =[];
+        while($rows=$result->fetch_object()){
+            $returnData[]=$rows;
+        }
+        return $returnData;
+    }
+
+    //insert, update, detele
+    public function command($sql)
+    {
+        $this->statement=$this->conn->prepare($sql);
+        $this->statement->execute();
+        return $this->statement->affected_rows;
     }
  
 }
