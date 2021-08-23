@@ -36,12 +36,8 @@ class Model {
         $this->statement->execute();
         $this->resetQuery();
 
-        $result = $this->statement->get_result();
-        $returnData =[];
-        while($rows=$result->fetch_object()){
-            $returnData[]=$rows;
-        }
-        return $returnData;
+        $result = $this->statement->get_result()->fetch_object();
+        return $result;
     }
 
     //get limit defaul 20 from table
@@ -174,6 +170,22 @@ class Model {
         $this->statement=$this->conn->prepare($sql);
         $this->statement->execute();
         return $this->statement->affected_rows;
+    }
+
+    public function auth()
+    {   
+        if (isset($_SESSION['email'])) {
+            $email = $_SESSION['email'];
+        
+            $sql ="SELECT id, name, email,role FROM users WHERE email = ?";
+            $this->statement= Database::getInstance()->connection->prepare($sql);
+            $this->statement->bind_param('s',$email);
+            $this->statement->execute();
+            
+            $auth = $this->statement->get_result()->fetch_object();
+            return $auth;
+        }
+        return [];
     }
  
 }

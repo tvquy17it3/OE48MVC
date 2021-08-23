@@ -18,6 +18,7 @@ class App
 			$this->controller = $arr0;
 			unset($arr[0]);
 		}
+
 		require_once "./mvc/controllers/".$this->controller.".php";
 		$this->controller = new $this->controller;
 
@@ -32,6 +33,9 @@ class App
 
 			unset($arr[1]);
 		}
+		require_once "./mvc/core/Middleware.php";
+		$mid = new Middleware();
+		$mid->Authenticate($arr0,$this->action);
 
 		//params
 		$this->params = $arr ? array_values($arr):[];

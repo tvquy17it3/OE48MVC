@@ -45,6 +45,7 @@ class register extends Controller{
 						    'name'=> $_POST['name'],
 						    'email'=>$email,
 						    'phone' =>$_POST['phone'],
+						    'profile_photo'=> BASE_URL."public/images/user.png",
 						    'role'=>3,
 						    'password'=> $password,
 						]);

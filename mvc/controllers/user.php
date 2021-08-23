@@ -74,41 +74,42 @@ class user extends Controller{
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 
-
 	function testtable()
 	{
-		$rs= $this->userModel->find(2);
-		print_r($rs);
-		echo "<br>";
-		echo "<br>";
-		$rs2 = $this->postModel->limit(1)->get();
-		print_r($rs2);
-		echo "<br>";
-		echo "<br>";
-		$rs3 = $this->postModel->get();
-		foreach ($rs3 as $value) {
-			echo $value->title;
-			echo "<br>";
-		}
+		// $rs= $this->userModel->find(2);
+		// print_r($rs);
+		// echo "<br>";
+		// echo "<br>";
+		// $rs2 = $this->postModel->limit(1)->get();
+		// print_r($rs2);
+		// echo "<br>";
+		// echo "<br>";
+		// $rs3 = $this->postModel->get();
+		// foreach ($rs3 as $value) {
+		// 	echo $value->title;
+		// 	echo "<br>";
+		// }
 
-		echo "<br>";
-		echo "<br>";
+		// echo "<br>";
+		// echo "<br>";
 
-		$rs4 = $this->userModel->limit(3)->get();
-		print_r($rs4);
-		echo "<br>";
-		echo "<br>";
+		// $rs4 = $this->userModel->limit(3)->get();
+		// print_r($rs4);
+		// echo "<br>";
+		// echo "<br>";
 
-		$rs5 = $this->userModel->all();
-		foreach ($rs5 as $valueu) {
-			echo $valueu->email;
-			echo "<br>";
-		}
+		// $rs5 = $this->userModel->all();
+		// foreach ($rs5 as $valueu) {
+		// 	echo $valueu->email;
+		// 	echo "<br>";
+		// }
 
-		echo "<br>";
-		echo "<br>";
-		$rs6 = $this->userModel->select("SELECT* FROM users WHERE role!='1' ");
-		print_r($rs6);
+		// echo "<br>";
+		// echo "<br>";
+		// $rs6 = $this->userModel->select("SELECT* FROM users WHERE role!='1' ");
+		// print_r($rs6);
+
+		print_r(Auth::getUser()->name);
 	}
 }
 
