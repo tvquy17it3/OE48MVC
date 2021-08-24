@@ -1,27 +1,40 @@
 <?php 
 
 class home extends Controller{
+	public $userModel;
+	public $postModel;
+
+	function __construct()
+	{
+		$this->userModel = $this->model('UserModel');
+		$this->postModel = $this->model('PostModel');
+	}
 
 	function index(){
-		if(isset($_SESSION['email'])){
-			echo $_SESSION['email'];
-		}
-		
-		if (isset($_SESSION['register'])) {
-			echo "Đăng ký thành công!";
-			unset($_SESSION['register']);
-		}
-		
-	}
+		$posts = $this->postModel->select("
+			SELECT posts.id, title, slug, thumbnail, body, posts.created_at, name, email
+			FROM posts 
+			INNER JOIN users ON users.id = posts.user_id
+			WHERE published = 1
+			ORDER BY RAND()
+			LIMIT 15
+		");
 
-	function show($id){
-		echo "show: ".$id;
-	}
+		$related = $this->postModel->select("
+			SELECT posts.id, title, thumbnail, slug, posts.created_at
+			FROM posts 
+			WHERE published = 1
+			ORDER BY RAND()
+			LIMIT 5
+		");
 
-	function test($id)
-	{
-		$userModel = $this->model('UserModel');
-		print_r($userModel->find($id));
+		$this->view("applayout",[
+				'page'    =>'index',
+				'title'   => "Trang chủ",
+				'posts'   => $posts,
+				'related' =>$related,
+		]);
+	
 	}
 }
 

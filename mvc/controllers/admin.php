@@ -12,9 +12,7 @@ class admin extends Controller{
 	}
 
 	function index(){
-		$this->view("admin/adlayout",[
-				'title'=> "Index",
-			]);
+		header('Location: ' . BASE_URL."admin/post_draft");
 	}   
 
 /////////////////// USERS//////////////////////
@@ -105,7 +103,7 @@ class admin extends Controller{
 
 ///////////POST///////////////
 
-	//show posts published
+	//view show posts published
 	function post_show(){
 		$posts = $this->postModel->select("
 			SELECT posts.id, title, slug, thumbnail, posts.created_at, name, email
@@ -120,7 +118,8 @@ class admin extends Controller{
 		]);
 	}   
 
-	//show posts unpublished
+
+	//view show posts unpublished
 	function post_draft(){
 		$posts = $this->postModel->select("
 			SELECT posts.id, title, slug, thumbnail, posts.created_at, name, email
@@ -135,6 +134,7 @@ class admin extends Controller{
 		]);
 	} 
 
+
 	//update published or unpublished post
 	function post_publish($id,$published)
 	{
@@ -144,6 +144,7 @@ class admin extends Controller{
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 
+
 	//delete post
 	function post_delete($id)
 	{
@@ -151,6 +152,7 @@ class admin extends Controller{
 		$rs ? $_SESSION['success']="Đã thực hiện" : "";
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
+
 
 	// view edit post
 	function post_edit($id)
@@ -169,6 +171,7 @@ class admin extends Controller{
 		]);
 	}
 
+	//view create post
 	function post_create()
 	{
 		$this->view("admin/adlayout",[
@@ -177,13 +180,76 @@ class admin extends Controller{
 		]);
 	}
 
+	// store post
+	function post_store()
+	{
+		if (isset($_POST['store'])) {
+			$noti=[];
+			if (empty($_POST["title"]) || empty($_POST["body"])) {
+               	$noti[] = "Vui lòng nhập đầy đủ!";
+            } else{
+				if(isset($_FILES['image'])){
+				    $errors= array();
+				    $file_name = $_FILES['image']['name'];
+				    $file_size =$_FILES['image']['size'];
+				    $file_tmp =$_FILES['image']['tmp_name'];
+				    $file_type=$_FILES['image']['type'];
+				    $tmp = explode('.', $file_name);
+					$file_ext = end($tmp);
+				    $extensions= array("jpeg","jpg","png");
+				      
+				    if(in_array($file_ext,$extensions)=== false){
+				        $noti[]= "Chọn ảnh có định dạng jpeg, png, jpg.";
+				    }
 
+				    if($file_size > 2097152) {
+				        $noti[]= 'Chọn ảnh nhỏ hơn 2 MB';
+				    }
 
+				    if(empty($noti)){
+				    	//Save file image
+				    	$link = "public/images/".time().$file_name;
+				        $title = $_POST['title'];
+				        $published =  $_POST['published'];
+				        $slug = $this->slugify($title."-".rand(100,1000));
 
+				        //insert post
+				        $insert = $this->postModel->insert([
+							'title'     => $title,
+						    'slug'      => $slug,
+						    'thumbnail' => BASE_URL.$link,
+						    'body'      => $_POST['body'],
+						    'user_id'   => Auth::getUser()->id,
+						    'published' => $published,
+						]);
 
+				        //check post
+						if ($insert > 0) {
+							move_uploaded_file($file_tmp,"./".$link);
+							$published ? $h = "admin/post_show" : $h = "admin/post_draft";
+							$_SESSION['success'] = "Đã tạo bài viết";
+							header('Location: ' .BASE_URL.$h);
+						}
 
+						$noti[] = "Đã có lỗi xảy ra";
+				    }
+			   	}else{
+			   		$noti[] = "Chưa chọn ảnh!";
+			   	}
+			}
 
-
+			//Error
+			if (!empty($noti)) {
+				$this->view("admin/adlayout",[
+						'page'	=>'admin/post-create',
+						'title'	=> "Viết bài",
+						'noti'	=> $noti,
+					]);
+			}
+		}else{
+			header('Location: ' . BASE_URL."admin");
+		}
+	}
 
 
 
@@ -198,37 +264,49 @@ class admin extends Controller{
 		for ($i=0; $i < $rand; $i++) { 
 			$title = $t[rand(0,$n)].$t[rand(0,$n)].$t[rand(0,$n)].$t[rand(0,$n)].$t[rand(0,$n)];
 			$slug = $this->slugify($title);
-			$inser = $this->postModel->insert([
-			'title'     => $title,
-		    'slug'      => $slug.'-'.time(),
-		    'thumbnail' =>"https://d25tv1xepz39hi.cloudfront.net/2016-01-31/files/1045.jpg",
-		    'body'      => $title.$title,
-		    'user_id'   => 2,
-		    'published' => rand(0,1),
-		]);
-		echo $inser;
+			$insert = $this->postModel->insert([
+				'title'     => $title,
+			    'slug'      => $slug.'-'.time(),
+			    'thumbnail' =>"https://d25tv1xepz39hi.cloudfront.net/2016-01-31/files/1045.jpg",
+			    'body'      => $title.$title,
+			    'user_id'   => 2,
+			    'published' => rand(0,1),
+			]);
+			echo "+".$insert;
 		}
 	}
+
+
 	//create slug
-	function slugify($text, string $divider = '-')
+	function slugify($str, string $divider = '-')
 	{
+	  	$str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
+		$str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
+		$str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
+		$str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
+		$str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
+		$str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
+		$str = preg_replace("/(đ)/", 'd', $str);
+		$str = preg_replace("/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'A', $str);
+		$str = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'E', $str);
+		$str = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'I', $str);
+		$str = preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'O', $str);
+		$str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'U', $str);
+		$str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'Y', $str);
+		$str = preg_replace("/(Đ)/", 'D', $str);
+		$str = preg_replace("/(\“|\”|\‘|\’|\,|\!|\&|\;|\@|\#|\%|\~|\`|\=|\_|\'|\]|\[|\}|\{|\)|\(|\+|\^)/", '-', $str);
+		$str = preg_replace("/( )/", '-', $str);
+		$str = preg_replace("/\-\-\-\-\-/", '-',$str);
+	    $str = preg_replace("/\-\-\-\-/", '-',$str);
+	    $str = preg_replace("/\-\-\-/", '-',$str);
+	    $str = preg_replace("/\-\-/", '-',$str);
 
-	  $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
-	  $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-	  $text = preg_replace('~[^-\w]+~', '', $text);
-	  $text = trim($text, $divider);
-
-	  // remove duplicate divider
-	  $text = preg_replace('~-+~', $divider, $text);
-	  $text = strtolower($text);
-
-	  if (empty($text)) {
+	  if (empty($str)) {
 	    return 'n-a';
 	  }
 
-	  return $text;
+	  return $str;
 	}
-
 
 
 ///////////POST///////////////
