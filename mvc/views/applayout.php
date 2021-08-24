@@ -12,8 +12,8 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>public/css/profile.css">
-	<style type="text/css">
-	</style>
+	  <!-- Font Awesome -->
+  	<link href="<?php echo BASE_URL; ?>public/fonts/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -64,10 +64,15 @@
 	</main>
 </div>
 
+<script type="text/javascript">
+	function confirm_delete() {
+        return confirm('Are you sure?');
+    }
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous">
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="<?php echo BASE_URL; ?>public/js/register.js"></script>
 <script src="<?php echo BASE_URL; ?>public/js/profile.js"></script>
 </body>
