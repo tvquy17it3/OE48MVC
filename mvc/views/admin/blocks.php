@@ -56,7 +56,7 @@
                           <a href="<?php echo BASE_URL.'admin/role_user/'.$value->id.'/3';?>"><button type="button" class="btn btn-warning" onclick="return confirm_block()"><i class="fa fa-reply" aria-hidden="true" data-toggle="tooltip" title="Khôi phục"></i></button></a>
                         <?php    } ?>
                         <button type="button" class="btn btn-primary open-modal" data-toggle="modal" 
-                        onclick="event.preventDefault();editRoleForm('<?php echo $value->id.",".$value->role;?>')"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit Role"></i></button>
+                        onclick="event.preventDefault();editRoleForm(<?php echo $value->id.",".$value->role;?>)"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit Role"></i></button>
                       </td>
                     </tr>
                   <?php }?>

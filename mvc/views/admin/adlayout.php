@@ -54,13 +54,6 @@
                     <li><a href="<?php echo BASE_URL; ?>admin/post_create">Tạo bài viết</a></li>
                   </ul>
                 </li>
-                  <!-- <li><a><i class="fa fa-bar-chart-o"></i>Thống kê<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="#">Hôm nay</a></li>
-                      <li><a href="#">Theo tuần</a></li>
-                      <li><a href="#">Theo tháng</a></li>
-                    </ul>
-                  </li> -->
                 </ul>
               </div>
               <div class="menu_section">
@@ -73,7 +66,7 @@
                       <li><a href="<?php echo BASE_URL; ?>admin/block">Đã khóa</a></li>
                     </ul>
                   </li>   
-                  <li><a href="../index.php"><i class="fa fa-home" aria-hidden="true"></i>Về trang chính</a></li>            
+                  <li><a href="<?php echo BASE_URL; ?>"><i class="fa fa-home" aria-hidden="true"></i>Về trang chính</a></li>            
                 </ul>
               </div>
 
@@ -166,10 +159,19 @@
         $(document).ready(function() {
             var check = "<?php echo $_SESSION['success']?? "";?>";
             if (check !="") {
-                toastr["success"]("<?php echo $_SESSION['success']?? ""; unset($_SESSION['success'])?>");
-            }   
-        })
+                toastr["success"]("<?php echo $_SESSION['success']?? "";
+                  unset($_SESSION['success']);
+                  ?>");
+            }  
+
+            $("#file").on('change', function() {
+                $('#frame').attr('src', URL.createObjectURL(event.target.files[0]));
+            }); 
+        });
+
+
     </script>
+
 
     <script src="<?php echo BASE_URL;?>public/js/jquery.dataTables.min.js"></script>
     <script src="<?php echo BASE_URL;?>public/js/dataTables.bootstrap.min.js"></script>

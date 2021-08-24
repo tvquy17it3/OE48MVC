@@ -16,28 +16,34 @@
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <form class="form-horizontal" role="form" method="POST" action="">
+                    <?php
+                        if (isset($data['noti'])) {
+                            foreach($data['noti'] as $noti){
+                                echo  "<div class='alert alert-secondary' role='alert'>".$noti."</div>";
+                            }
+                        }
+                    ?>
+                    <form class="form-horizontal" role="form" method="POST" action="<?php echo BASE_URL; ?>admin/post_store" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="title" class="control-label">Tiêu đề</label>
                             <input id="title" type="text" class="form-control" name="title" value="" required autofocus>
-                            
                         </div>
 
                         <div class="form-group">
                             <label for="title">Thumbnail</label>
                             <div class="input-group">
-                              <span class="input-group-btn">
-                                <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
-                                  <i class="fa fa-picture-o"></i> Choose
-                                  </a>
-                              </span>
-                              <input id="thumbnail" class="form-control" type="text" name="thumbnail" value="" readonly>
+                              <div class="row">
+                                <div class="col-md-2">
+                                    <input accept="image/*" type='file' id="file" name="image" required="" />
+                                    <img id="frame" src="#" alt="." height="260"/>
+                                </div>
+                              </div><br>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Contents</label>
-                            <textarea class="form-control" id="ckeditorContemt" rows="3" name="body"></textarea>
+                            <textarea class="form-control" id="ckeditorContemt" rows="3" name="body" minlength=5 required></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3">
@@ -51,7 +57,7 @@
 
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-3">
-                                <button type="submit" class="btn btn-success">
+                                <button type="submit" class="btn btn-success" name="store">
                                     Tạo bài viết mới
                                 </button>
                                 <a href="" class="btn btn-danger">

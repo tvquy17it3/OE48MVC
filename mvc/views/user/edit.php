@@ -18,10 +18,10 @@
                         <p class="proile-rating">RANKINGS : <span>8/10</span></p>
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                        <a class="nav-link active" href="<?php echo BASE_URL; ?>profile" role="tab"  aria-selected="true">Thông tin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                        <a class="nav-link"  href="<?php echo BASE_URL; ?>profile/post" role="tab" aria-selected="false">Bài viết</a>
                     </li>
                 </ul>
             </div>
