@@ -23,6 +23,9 @@
                     <li class="nav-item">
                         <a class="nav-link"  href="<?php echo BASE_URL; ?>profile/post" role="tab" aria-selected="false">Bài viết</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  href="<?php echo BASE_URL; ?>post/create" role="tab" aria-selected="false">Tạo bài viết</a>
+                    </li>
                 </ul>
             </div>
         </div>

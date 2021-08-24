@@ -132,12 +132,12 @@ class profile extends Controller{
   	$id = Auth::getUser()->id;
   	$posts = $this->postModel->where('user_id', "=", $id);
    	$user = $this->userModel->find($id);
-	$this->view("applayout",[
-			'page'  =>'user/list-post',
-			'title' => "Bài viết",
-			'user'  => $user,
-			'posts' => $posts,
-	]);
+		$this->view("applayout",[
+				'page'  =>'user/list-post',
+				'title' => "Bài viết",
+				'user'  => $user,
+				'posts' => $posts,
+		]);
   }
 
 

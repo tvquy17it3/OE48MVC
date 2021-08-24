@@ -128,53 +128,53 @@
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="<?php echo BASE_URL; ?>public/js/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="<?php echo BASE_URL; ?>public/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="<?php echo BASE_URL; ?>public/js/custom.min.js"></script>
-    <script type="text/javascript">
-      function thongbao(){
-        alert("Chưa hoàn thiện hành động này!");
-      }
-      function del(){
-        alert("Xoa!");
-      }
+<!-- jQuery -->
+<script src="<?php echo BASE_URL; ?>public/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="<?php echo BASE_URL; ?>public/js/bootstrap.bundle.min.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="<?php echo BASE_URL; ?>public/js/custom.min.js"></script>
+<script type="text/javascript">
+  function thongbao(){
+    alert("Chưa hoàn thiện hành động này!");
+  }
+  function del(){
+    alert("Xoa!");
+  }
 
-      function confirm_delete() {
-        return confirm('Are you sure?');
-      }
+  function confirm_delete() {
+    return confirm('Are you sure?');
+  }
 
-      function confirm_block() {
-        return confirm('Are you sure?');
-      }
+  function confirm_block() {
+    return confirm('Are you sure?');
+  }
 
-      function confirm_post() {
-        return confirm('Are you sure?');
-      }
-    </script>
-    <script src="<?php echo BASE_URL;?>public/js/toastr.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var check = "<?php echo $_SESSION['success']?? "";?>";
-            if (check !="") {
-                toastr["success"]("<?php echo $_SESSION['success']?? "";
-                  unset($_SESSION['success']);
-                  ?>");
-            }  
+  function confirm_post() {
+    return confirm('Are you sure?');
+  }
+</script>
+<script src="<?php echo BASE_URL;?>public/js/toastr.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var check = "<?php echo $_SESSION['success']?? "";?>";
+        if (check !="") {
+            toastr["success"]("<?php echo $_SESSION['success']?? "";
+              unset($_SESSION['success']);
+              ?>");
+        }  
 
-            $("#file").on('change', function() {
-                $('#frame').attr('src', URL.createObjectURL(event.target.files[0]));
-            }); 
-        });
-
-
-    </script>
+        $("#file").on('change', function() {
+            $('#frame').attr('src', URL.createObjectURL(event.target.files[0]));
+        }); 
+    });
 
 
-    <script src="<?php echo BASE_URL;?>public/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo BASE_URL;?>public/js/dataTables.bootstrap.min.js"></script>
+</script>
+
+
+<script src="<?php echo BASE_URL;?>public/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo BASE_URL;?>public/js/dataTables.bootstrap.min.js"></script>
 
   </body>
   </html>
