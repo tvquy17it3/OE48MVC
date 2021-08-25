@@ -26,11 +26,7 @@
                             <input id="title" type="text" class="form-control" name="title" value="<?php echo $data['post']->title; ?>" readonly>
                         </div>
                         <div class="form-group">
-<<<<<<< HEAD
                             <!-- <label>Thumbnail</label> -->
-=======
-                            <label>Thumbnail</label>
->>>>>>> ab9d09cea1b576fb4e80d4f17f407d5d6804d5e9
                             <div class="input-group">
                                 <span class="input-group-btn">
                                 </span>
@@ -39,11 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlTextarea1">Nội dung</label>
-<<<<<<< HEAD
                             <textarea class="form-control" id="ckeditorContemt" rows="10" name="body" readonly=""><?php echo $data['post']->body; ?></textarea>
-=======
-                            <textarea class="form-control" id="ckeditorContemt" rows="3" name="body"><?php echo $data['post']->body; ?></textarea>
->>>>>>> ab9d09cea1b576fb4e80d4f17f407d5d6804d5e9
                         </div>
                         <div class="form-group">
                             <div class="col-md-9 col-md-offset-3">
@@ -60,11 +52,7 @@
                         </div>
                     </form>
                     <div class="form-group">
-<<<<<<< HEAD
                         <!-- <label for="exampleFormControlTextarea1">Status</label> -->
-=======
-                        <label for="exampleFormControlTextarea1">Status</label>
->>>>>>> ab9d09cea1b576fb4e80d4f17f407d5d6804d5e9
                         <h2></h2>  
                     </div>
                 </div>
