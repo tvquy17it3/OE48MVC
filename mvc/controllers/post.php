@@ -53,7 +53,7 @@ class post extends Controller{
 		$user = $this->userModel->find($id);
 		$this->view("applayout",[
 				'page' =>'user/create-post',
-				'title'=> "Cập nhật avatar",
+				'title'=> "Tạo bài viết",
 				'user' => $user,
 		]);
 	}
@@ -128,17 +128,78 @@ class post extends Controller{
 		}
 	}
 
-
-		//delete account
-	function delete($post_id)
+	//view edit post
+	function edit($post_id)
 	{
-		$user_id = $this->postModel->find($post_id)->user_id;		
-		if (Auth::getUser()->id == $user_id) {
+		if ($this->checkAuthor($post_id)) {
+
+			$id = Auth::getUser()->id;
+			$user = $this->userModel->find($id);
+			$post = $this->postModel->find($post_id);
+
+			$this->view("applayout",[
+					'page'	=>'user/edit-post',
+					'title'	=> "Sửa bài viết",
+					'user'  => $user,
+					'post'  => $post,
+				]);
+		} else{
+			header('Location: ' . BASE_URL);
+		}
+	}
+
+	function update($post_id){
+		if (isset($_POST['update'])) {
+			if ($this->checkAuthor($post_id)) {
+
+			  	$insert = $this->postModel->update($post_id,[
+						    'title'   => $_POST['title'],
+						    'body'  => $_POST['body'],
+						]);
+
+			  	if ($insert>0) {
+			  		$noti[] = "Đã cập nhật thành công!";
+			  	}else{
+			  		$noti[] = "Đã có lỗi xảy ra!";
+				}
+
+				$user_id = Auth::getUser()->id;
+				$user = $this->userModel->find($user_id);
+				$post = $this->postModel->find($post_id);
+				$this->view("applayout",[
+						'page' =>'user/edit-post',
+						'title'=> "Sửa thông tin",
+						'user' => $user,
+						'post' => $post,
+						'noti' => $noti,
+				]);
+			}
+
+		}else {
+			header('Location: ' .BASE_URL."profile/post");
+		}
+	}
+
+
+	//delete post
+	function delete($post_id)
+	{	
+		if ($this->checkAuthor($post_id)) {
 			$this->postModel->delete($post_id);
 			header('Location: ' . $_SERVER['HTTP_REFERER']);
 		} else{
 			header('Location: ' . BASE_URL);
 		}
+	}
+
+	//check author post and account
+	function checkAuthor($post_id){
+		$user_id = $this->postModel->find($post_id)->user_id;		
+		if (Auth::getUser()->id == $user_id) {
+			return true;
+		} 
+
+		return false;
 	}
 }
 

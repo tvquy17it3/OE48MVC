@@ -12,7 +12,6 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>public/css/profile.css">
-	  <!-- Font Awesome -->
   	<link href="<?php echo BASE_URL; ?>public/fonts/font-awesome.min.css" rel="stylesheet">
 </head>
 
@@ -34,24 +33,26 @@
 						<a class="nav-link" href="<?php echo BASE_URL; ?>" style="color: white">Trang chủ</a>
 					</li>
 					<?php 
-						if (!isset($_SESSION['email'])) {
-							?>
-							<li class="nav-item">
-								<a class="nav-link" href="<?php echo BASE_URL; ?>login" style="color: white">Đăng nhập</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link" href="<?php echo BASE_URL; ?>register" style="color: white">Đăng ký</a>
-							</li>
-							<?php
-						}else {
-							?>
+						if (!isset($_SESSION['email'])) { ?>
+								<li class="nav-item">
+									<a class="nav-link" href="<?php echo BASE_URL; ?>login" style="color: white">Đăng nhập</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="<?php echo BASE_URL; ?>register" style="color: white">Đăng ký</a>
+								</li>
+						<?php }else { ?>
 							<li class="nav-item">
 								<a class="nav-link" href="<?php echo BASE_URL; ?>profile" style="color: white"><?php echo Auth::getUser()->name;?></a>
 							</li>
+						<?php	if (Auth::getUser()->role==1) {?>
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo BASE_URL; ?>login/logout" style="color: white">Đăng xuất</a>
+								<a class="nav-link" href="<?php echo BASE_URL; ?>admin" style="color: white">Quản lý</a>
 							</li>
-							<?php
+						<?php }?>
+							<li class="nav-item">
+								<a class="nav-link" href="<?php echo BASE_URL; ?>login/logout" style="color: white"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+							</li>
+						<?php
 						}
 					?>
 				</ul>
@@ -59,7 +60,7 @@
 		</div>
 	</nav>
 	<main class="py-4">
-		<input hidden="" id="base_url" value="<?php echo BASE_URL; ?>"></div>
+		<input hidden="" id="base_url" value="<?php echo BASE_URL; ?>">
 		<?php require_once "./mvc/views/".$data['page'].".php";?>
 	</main>
 </div>

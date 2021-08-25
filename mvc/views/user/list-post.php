@@ -58,7 +58,7 @@
                                         <li class="timeline-item bg-white rounded ml-3 p-4 shadow">
                                             <div class="timeline-arrow"></div>
                                             <a href="<?php echo BASE_URL."post/delete/".$value->id;?>" style="float: right;color: red;" onclick="return confirm_delete()">&nbsp;&nbsp;<i class="fa fa-trash" aria-hidden="true" title="Xóa"></i></a>
-                                            <a href="" style="float: right;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                            <a href="<?php echo BASE_URL."post/edit/".$value->id;?>" style="float: right;"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <a href="<?php echo BASE_URL.'post/show/'.$value->slug; ?>" style="text-decoration: none;">
                                                 <div class="row">
                                                     <div class="col-md-5">

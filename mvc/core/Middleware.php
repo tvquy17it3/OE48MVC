@@ -6,8 +6,9 @@ class Middleware{
 	function Authenticate($controller, $action)
 	{
 		$ctrl= ['profile','user','admin'];
-		$act = ['create','store','edit','delete'];
+		$route = ['post/create','post/store','post/edit','post/update','post/delete'];
 
+		//check controller
 		if (in_array($controller,$ctrl)) {
 			if (!isset(Auth::getUser()->id)) {
 				header('Location: ' .BASE_URL."login");
@@ -19,7 +20,8 @@ class Middleware{
 			}
 		}
 
-		if ($controller == "post" && in_array($action,$act)) {
+		//check route 
+		if (in_array($controller."/".$action,$route)) {
 			if (!isset(Auth::getUser()->id)) {
 				header('Location: ' .BASE_URL."login");
 			}
